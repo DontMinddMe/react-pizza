@@ -1,6 +1,8 @@
 @import '../variables';
 
 .sort {
+  display: flex;
+  flex-direction: column;
   position: relative;
   &__label {
     display: flex;
@@ -48,6 +50,15 @@
           color: $orange;
         }
       }
+    }
+  }
+
+  &__checkbox {
+    align-self: flex-end;
+    margin-top: 10px;
+
+    input {
+      margin-left: 10px;
     }
   }
 }
