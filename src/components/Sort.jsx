@@ -48,7 +48,7 @@ function Sort({ sort, setSort, isAsc, setIsAsc }) {
       )}
       {sort.value !== 'title' && (
         <div className="sort__checkbox">
-          <b>По убыванию</b>
+          <b>По возрастанию</b>
           <input type="checkbox" onChange={() => setIsAsc(!isAsc)} />
         </div>
       )}
