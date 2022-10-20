@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import SearchBarMobile from '../SearchBarMobile';
 
-function Header({ searchValue, setSearchValue }) {
+function Header() {
   return (
     <div className="header">
       <div className="container">
@@ -16,9 +16,9 @@ function Header({ searchValue, setSearchValue }) {
               <p>самая вкусная пицца во вселенной</p>
             </div>
           </div>
-          <SearchBarMobile searchValue={searchValue} setSearchValue={setSearchValue} />
+          <SearchBarMobile />
         </Link>
-        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+        <SearchBar />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

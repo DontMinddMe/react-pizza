@@ -5,8 +5,10 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaBlockSkeleton';
 import Pagination from '../Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [activeCategory, setActiveCategory] = React.useState(0);
@@ -64,7 +66,7 @@ const Home = ({ searchValue }) => {
           </div>
         )}
       </div>
-      {paginationCount > 1 && (
+      {paginationCount > 1 && items.length > 0 && (
         <Pagination paginationCount={paginationCount} setActivePage={setActivePage} />
       )}
     </>
