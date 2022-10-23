@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -9,40 +10,35 @@ import Pagination from '../components/Pagination';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const searchValue = useSelector((state) => state.search.searchValue);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const activeCategory = useSelector((state) => state.filter.categoryId);
-
   const [activePage, setActivePage] = React.useState(1);
 
-  const activeSort = useSelector((state) => state.filter.sort);
-  const isAsc = useSelector((state) => state.filter.isAsc);
+  const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
+
+  const searchValue = useSelector((state) => state.search.searchValue);
+  const { categoryId, sort, isAsc } = useSelector((state) => state.filter);
 
   React.useEffect(() => {
-    const category = activeCategory === 0 ? '' : `&category=${activeCategory}`;
+    const category = categoryId === 0 ? '' : `&category=${categoryId}`;
     const order = isAsc ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
     setIsLoading(true);
-    fetch(
-      `https://6349481b0b382d796c8241e2.mockapi.io/items?page=${activePage}&limit=4&sortBy=${
-        activeSort.value
-      }&order=${activeSort.value === 'title' ? 'asc' : order}${category}${search}`,
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+    axios
+      .get(
+        `https://6349481b0b382d796c8241e2.mockapi.io/items?page=${activePage}&limit=4&sortBy=${
+          sort.value
+        }&order=${sort.value === 'title' ? 'asc' : order}${category}${search}`,
+      )
+      .then((response) => {
+        setItems(response.data);
         setIsLoading(false);
       });
 
     window.scrollTo(0, 0);
-  }, [activeCategory, activeSort, isAsc, searchValue, activePage]);
-
-  const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
+  }, [categoryId, sort, isAsc, searchValue, activePage]);
 
   return (
     <>

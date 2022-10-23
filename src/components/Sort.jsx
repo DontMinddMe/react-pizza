@@ -10,6 +10,23 @@ function Sort() {
     { name: 'алфавиту', value: 'title' },
   ];
 
+  if (sortPopUpVisibility) {
+    document.addEventListener('click', (event) => {
+      if (!event.target.classList.contains('sort__label__span')) {
+        setSortPopUpVisibility(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Escape') {
+        setSortPopUpVisibility(false);
+      }
+    });
+  } else {
+    document.removeEventListener('click', () => {});
+    document.removeEventListener('keydown', () => {});
+  }
+
   const sort = useSelector((state) => state.filter.sort);
 
   const dispatch = useDispatch();
@@ -35,7 +52,12 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setSortPopUpVisibility(!sortPopUpVisibility)}>{sort.name}</span>
+        <span
+          className={'sort__label__span'}
+          onClick={() => setSortPopUpVisibility(!sortPopUpVisibility)}
+        >
+          {sort.name}
+        </span>
       </div>
       {sortPopUpVisibility && (
         <div className="sort__popup">
