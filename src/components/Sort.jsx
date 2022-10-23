@@ -1,6 +1,8 @@
 import React from 'react';
+import { setSort, setIsAsc } from '../store/slices/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Sort({ sort, setSort, isAsc, setIsAsc }) {
+function Sort() {
   const [sortPopUpVisibility, setSortPopUpVisibility] = React.useState(false);
   const sortTypes = [
     { name: 'популярности', value: 'rating' },
@@ -8,8 +10,12 @@ function Sort({ sort, setSort, isAsc, setIsAsc }) {
     { name: 'алфавиту', value: 'title' },
   ];
 
+  const sort = useSelector((state) => state.filter.sort);
+
+  const dispatch = useDispatch();
+
   const selectSortType = (obj) => {
-    setSort(obj);
+    dispatch(setSort(obj));
     setSortPopUpVisibility(false);
   };
 
@@ -49,7 +55,7 @@ function Sort({ sort, setSort, isAsc, setIsAsc }) {
       {sort.value !== 'title' && (
         <div className="sort__checkbox">
           <b>По возрастанию</b>
-          <input type="checkbox" onChange={() => setIsAsc(!isAsc)} />
+          <input type="checkbox" onChange={() => dispatch(setIsAsc())} />
         </div>
       )}
     </div>

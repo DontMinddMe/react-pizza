@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store.js';
 
 import './scss/app.scss';
 
@@ -11,11 +13,9 @@ import Cart from './pages/Cart';
 export const SearchContext = React.createContext('');
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState('');
-
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+      <Provider store={store}>
         <Header />
         <div className="content">
           <div className="container">
@@ -26,7 +26,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </SearchContext.Provider>
+      </Provider>
     </div>
   );
 }

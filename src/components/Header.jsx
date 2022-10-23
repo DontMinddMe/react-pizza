@@ -1,8 +1,8 @@
 import pizzaLogo from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 
-import SearchBar from '../SearchBar';
-import SearchBarMobile from '../SearchBarMobile';
+import SearchBar from './SearchBar';
+import SearchBarMobile from './SearchBarMobile';
 
 function Header() {
   return (

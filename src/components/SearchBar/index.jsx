@@ -1,10 +1,13 @@
 import React from 'react';
-import { SearchContext } from '../App';
+import { setSearchValue } from '../../store/slices/searchSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './SearchBar.module.scss';
 
 const Searchbar = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const searchValue = useSelector((state) => state.search.searchValue);
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.root}>
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className={styles.icon}>
@@ -17,7 +20,7 @@ const Searchbar = () => {
         type="search"
         placeholder="Поиск"
         value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => dispatch(setSearchValue(event.target.value))}
       />
     </div>
   );
