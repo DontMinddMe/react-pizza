@@ -2,30 +2,37 @@ import React from 'react';
 import { setSort, setIsAsc } from '../store/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
+export const sortTypes = [
+  { name: 'популярности', value: 'rating' },
+  { name: 'цене', value: 'price' },
+  { name: 'алфавиту', value: 'title' },
+];
+
 function Sort() {
   const [sortPopUpVisibility, setSortPopUpVisibility] = React.useState(false);
-  const sortTypes = [
-    { name: 'популярности', value: 'rating' },
-    { name: 'цене', value: 'price' },
-    { name: 'алфавиту', value: 'title' },
-  ];
+  const sortRef = React.useRef();
 
-  if (sortPopUpVisibility) {
-    document.addEventListener('click', (event) => {
-      if (!event.target.classList.contains('sort__label__span')) {
+  React.useEffect(() => {
+    const clickEvent = (event) => {
+      if (!event.path.includes(sortRef.current)) {
         setSortPopUpVisibility(false);
       }
-    });
+    };
 
-    document.addEventListener('keydown', (event) => {
+    const keydownEvent = (event) => {
       if (event.code === 'Escape') {
         setSortPopUpVisibility(false);
       }
-    });
-  } else {
-    document.removeEventListener('click', () => {});
-    document.removeEventListener('keydown', () => {});
-  }
+    };
+
+    document.addEventListener('click', clickEvent);
+    document.addEventListener('keydown', keydownEvent);
+
+    return () => {
+      document.removeEventListener('click', clickEvent);
+      document.removeEventListener('keydown', keydownEvent);
+    };
+  }, []);
 
   const sort = useSelector((state) => state.filter.sort);
 
@@ -37,7 +44,7 @@ function Sort() {
   };
 
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           width="10"
@@ -52,12 +59,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span
-          className={'sort__label__span'}
-          onClick={() => setSortPopUpVisibility(!sortPopUpVisibility)}
-        >
-          {sort.name}
-        </span>
+        <span onClick={() => setSortPopUpVisibility(!sortPopUpVisibility)}>{sort.name}</span>
       </div>
       {sortPopUpVisibility && (
         <div className="sort__popup">
