@@ -9,6 +9,17 @@
     align-items: center;
     justify-content: space-between;
 
+    .heared__wrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 75%;
+      align-items: center;
+
+      @media (max-width: 1360px) {
+        flex-direction: column;
+      }
+    }
+
     @media (max-width: 660px) {
       flex-direction: column;
       .button {

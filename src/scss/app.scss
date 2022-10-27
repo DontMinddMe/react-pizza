@@ -37,6 +37,7 @@ body {
 
     &__not_found {
       font-size: 27px;
+      padding: 40px;
     }
 
     @media (max-width: 1400px) {
@@ -49,6 +50,15 @@ body {
 
     @media (max-width: 765px) {
       grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__error {
+    padding: 40px;
+    font-size: 18px;
+
+    h2 {
+      margin-bottom: 15px;
     }
   }
 

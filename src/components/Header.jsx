@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import SearchBar from './SearchBar';
-import SearchBarMobile from './SearchBarMobile';
 
 function Header() {
   const { totalPrice, totalCount } = useSelector((state) => state.cart);
@@ -11,17 +10,18 @@ function Header() {
   return (
     <div className="header">
       <div className="container">
-        <Link to="/">
-          <div className="header__logo">
-            <img width="38" src={pizzaLogo} alt="Pizza logo" />
-            <div>
-              <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+        <div className="heared__wrapper">
+          <Link to="/">
+            <div className="header__logo">
+              <img width="38" src={pizzaLogo} alt="Pizza logo" />
+              <div>
+                <h1>React Pizza</h1>
+                <p>самая вкусная пицца во вселенной</p>
+              </div>
             </div>
-          </div>
-          <SearchBarMobile />
-        </Link>
-        <SearchBar />
+          </Link>
+          <SearchBar />
+        </div>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>{totalPrice} ₽</span>

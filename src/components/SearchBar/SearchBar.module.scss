@@ -20,6 +20,13 @@
     padding-left: 45px;
     font-size: 18px;
 
+    @media (max-width: 750px) {
+      width: 300px;
+    }
+    @media (max-width: 750px) {
+      width: 250px;
+    }
+
     &:focus {
       border: 1px solid rgba($color: #000000, $alpha: 0.5);
     }
@@ -39,6 +46,7 @@
   }
 
   @media (max-width: 1360px) {
-    display: none;
+    right: 0px;
+    top: 15px;
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,21 +9,22 @@ import PizzaSkeleton from '../components/PizzaBlockSkeleton';
 import Pagination from '../components/Pagination';
 
 import { setFilter } from '../store/slices/filterSlice';
+import { fetchItems } from '../store/slices/pizzaSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const isSearc = React.useRef(false);
+  const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
   const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
 
   const searchValue = useSelector((state) => state.search.searchValue);
   const { categoryId, sort, isAsc, activePage } = useSelector((state) => state.filter);
+
+  const { items, status } = useSelector((state) => state.pizza);
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -53,31 +53,37 @@ const Home = () => {
         }),
       );
 
-      isSearc.current = true;
+      isSearch.current = true;
     }
   }, [dispatch]);
 
   React.useEffect(() => {
-    if (!isSearc.current) {
-      const category = categoryId === 0 ? '' : `&category=${categoryId}`;
-      const order = isAsc ? 'asc' : 'desc';
-      const search = searchValue ? `&search=${searchValue}` : '';
-      setIsLoading(true);
-      axios
-        .get(
-          `https://6349481b0b382d796c8241e2.mockapi.io/items?page=${activePage}&limit=4&sortBy=${
-            sort.value
-          }&order=${sort.value === 'title' ? 'asc' : order}${category}${search}`,
-        )
-        .then((response) => {
-          setItems(response.data);
-          setIsLoading(false);
-        });
+    const loadItems = async () => {
+      if (!isSearch.current) {
+        const category = categoryId === 0 ? '' : `&category=${categoryId}`;
+        const order = isAsc ? 'asc' : 'desc';
+        const search = searchValue ? `&search=${searchValue}` : '';
 
-      window.scrollTo(0, 0);
-    }
-    isSearc.current = false;
-  }, [categoryId, sort, isAsc, searchValue, activePage]);
+        dispatch(
+          fetchItems({
+            sort,
+            category,
+            order,
+            search,
+            activePage,
+          }),
+        );
+
+        window.scrollTo(0, 0);
+      }
+      isSearch.current = false;
+    };
+
+    loadItems();
+  }, [categoryId, sort, isAsc, searchValue, activePage, dispatch]);
+
+  const content = items.map((obj) => <PizzaBlock {...obj} key={obj.id} />);
+  const skeleton = [...new Array(4)].map((_, index) => <PizzaSkeleton key={index} />);
 
   return (
     <>
@@ -86,16 +92,18 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(4)].map((_, index) => <PizzaSkeleton key={index} />)
-          : items.map((obj) => <PizzaBlock {...obj} key={obj.id} />)}
-        {items.length === 0 && !isLoading && (
-          <div className="content__items__not_found">
-            <b>Ничего не найдено :(</b>
-          </div>
-        )}
-      </div>
+      {status === 'error' ? (
+        <div className="content__error">
+          <h2>Произошла ошибка 😕</h2>
+          <p>Не удалось получить ответ от сервера. Повторите попытку позже...</p>
+        </div>
+      ) : items.length === 0 && status !== 'loading' ? (
+        <div className="content__items__not_found">
+          <h2>Ничего не найдено :(</h2>
+        </div>
+      ) : (
+        <div className="content__items">{status === 'loading' ? skeleton : content}</div>
+      )}
       {paginationCount > 1 && items.length > 0 && <Pagination paginationCount={paginationCount} />}
     </>
   );
