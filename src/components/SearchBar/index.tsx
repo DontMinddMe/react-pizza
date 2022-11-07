@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './SearchBar.module.scss';
 
-const Searchbar = () => {
-  const searchValue = useSelector((state) => state.search.searchValue);
+const Searchbar: React.FC = () => {
+  const searchValue = useSelector((state: any) => state.search.searchValue); /////////////////////////////////////////// Временный фикс
   const dispatch = useDispatch();
 
   return (

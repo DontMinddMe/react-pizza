@@ -1,11 +1,12 @@
+import React from 'react';
 import pizzaLogo from '../assets/img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import SearchBar from './SearchBar';
 
-function Header() {
-  const { totalPrice, totalCount } = useSelector((state) => state.cart);
+const Header: React.FC = () => {
+  const { totalPrice, totalCount } = useSelector((state: any) => state.cart); // Временный фикс
   const { pathname } = useLocation();
 
   return (
@@ -64,6 +65,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

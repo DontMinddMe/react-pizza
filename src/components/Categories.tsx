@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategory } from '../store/slices/filterSlice';
 
-function Categories() {
+const Categories: React.FC = () => {
   const categoriesArray = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-  const categoryId = useSelector((state) => state.filter.categoryId);
+  const categoryId = useSelector((state: any) => state.filter.categoryId); //////////////////////////////////////////// Временный фикс
   const dispatch = useDispatch();
 
   return (
@@ -22,6 +22,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

@@ -4,9 +4,11 @@ import { setActivePage } from '../../store/slices/filterSlice';
 
 import styles from './Pagination.module.scss';
 
-const Pagination = ({ paginationCount }) => {
+type PaginationProps = { paginationCount: number };
+
+const Pagination: React.FC<PaginationProps> = ({ paginationCount }) => {
   const dispatch = useDispatch();
-  const { activePage } = useSelector((state) => state.filter);
+  const { activePage } = useSelector((state: any) => state.filter); ////////////////////////////////////////// Временный фикс
 
   const paginationList = Array.from({ length: paginationCount }, (_, i) => i + 1);
 

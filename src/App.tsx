@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -10,8 +9,6 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
 import ItemDescription from './pages/ItemDescription';
-
-export const SearchContext = React.createContext('');
 
 function App() {
   return (

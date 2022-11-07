@@ -8,7 +8,15 @@ import {
   updatePrice,
 } from '../store/slices/cartSlice';
 
-const PizzaBlocCart = ({ title, imageUrl, price, count, id }) => {
+type PizzaCartItemProps = {
+  title: string;
+  imageUrl: string;
+  price: number;
+  count: number;
+  id: string;
+};
+
+const PizzaCartItem: React.FC<PizzaCartItemProps> = ({ title, imageUrl, price, count, id }) => {
   const dispatch = useDispatch();
   const onClickAdd = () => {
     dispatch(
@@ -117,4 +125,4 @@ const PizzaBlocCart = ({ title, imageUrl, price, count, id }) => {
   );
 };
 
-export default PizzaBlocCart;
+export default PizzaCartItem;

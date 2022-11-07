@@ -2,28 +2,33 @@ import React from 'react';
 import { setSort, setIsAsc } from '../store/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const sortTypes = [
+type SortItem = {
+  name: string;
+  value: string;
+};
+
+export const sortTypes: SortItem[] = [
   { name: 'популярности', value: 'rating' },
   { name: 'цене', value: 'price' },
   { name: 'алфавиту', value: 'title' },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
   const [sortPopUpVisibility, setSortPopUpVisibility] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const clickEvent = (event) => {
+    const clickEvent = (event: any) => {
       if (!event.path.includes(sortRef.current)) {
         setSortPopUpVisibility(false);
       }
-    };
+    }; ///////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
 
-    const keydownEvent = (event) => {
+    const keydownEvent = (event: any) => {
       if (event.code === 'Escape') {
         setSortPopUpVisibility(false);
       }
-    };
+    }; ///////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
 
     document.addEventListener('click', clickEvent);
     document.addEventListener('keydown', keydownEvent);
@@ -34,11 +39,11 @@ function Sort() {
     };
   }, []);
 
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: any) => state.filter.sort); ///////////////////////////////////// Временный фикс
 
   const dispatch = useDispatch();
 
-  const selectSortType = (obj) => {
+  const selectSortType = (obj: SortItem) => {
     dispatch(setSort(obj));
     setSortPopUpVisibility(false);
   };
@@ -84,6 +89,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

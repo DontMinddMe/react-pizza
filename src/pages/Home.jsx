@@ -1,6 +1,6 @@
 import React from 'react';
 import qs from 'qs';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Sort, { sortTypes } from '../components/Sort';
@@ -82,12 +82,7 @@ const Home = () => {
     loadItems();
   }, [categoryId, sort, isAsc, searchValue, activePage, dispatch]);
 
-  const content = items.map((obj) => (
-    <Link to={`item/${obj.id}`} key={obj.id}>
-      {' '}
-      <PizzaBlock {...obj} />{' '}
-    </Link>
-  ));
+  const content = items.map((obj) => <PizzaBlock {...obj} key={obj.id} />);
   const skeleton = [...new Array(4)].map((_, index) => <PizzaSkeleton key={index} />);
 
   return (
