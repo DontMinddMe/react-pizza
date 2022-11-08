@@ -21,6 +21,10 @@ const PizzaCartItem: React.FC<PizzaCartItemProps> = ({ title, imageUrl, price, c
   const onClickAdd = () => {
     dispatch(
       addItem({
+        title,
+        imageUrl,
+        price,
+        count,
         id,
       }),
     );

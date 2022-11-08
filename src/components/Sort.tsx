@@ -1,6 +1,7 @@
 import React from 'react';
 import { setSort, setIsAsc } from '../store/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 type SortItem = {
   name: string;
@@ -43,7 +44,7 @@ const Sort: React.FC = () => {
     };
   }, []);
 
-  const sort = useSelector((state: any) => state.filter.sort); ///////////////////////////////////// Временный фикс
+  const sort = useSelector((state: RootState) => state.filter.sort);
 
   const dispatch = useDispatch();
 

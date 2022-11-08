@@ -2,11 +2,12 @@ import React from 'react';
 import pizzaLogo from '../assets/img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 import SearchBar from './SearchBar';
 
 const Header: React.FC = () => {
-  const { totalPrice, totalCount } = useSelector((state: any) => state.cart); // Временный фикс
+  const { totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
   const { pathname } = useLocation();
 
   return (

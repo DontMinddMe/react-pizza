@@ -5,20 +5,10 @@ import { clearCart } from '../store/slices/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import PizzaCartItem from '../components/PizzaCartItem';
 import CartEmpty from '../components/CartEmpty';
-
-type PizzaBlockProps = {
-  category: number;
-  id: string;
-  imageUrl: string;
-  price: number;
-  rating: number;
-  sizes: number[];
-  title: string;
-  types: number[];
-};
+import { RootState } from '../store';
 
 const Cart: React.FC = () => {
-  const { items, totalCount, totalPrice } = useSelector((state: any) => state.cart); ////////////////////////////// Временный фикс
+  const { items, totalCount, totalPrice } = useSelector((state: RootState) => state.cart);
 
   const dispatch = useDispatch();
 

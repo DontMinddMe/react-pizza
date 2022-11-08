@@ -2,10 +2,12 @@ import React from 'react';
 import { setSearchValue } from '../../store/slices/searchSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { RootState } from '../../store';
+
 import styles from './SearchBar.module.scss';
 
 const Searchbar: React.FC = () => {
-  const searchValue = useSelector((state: any) => state.search.searchValue); /////////////////////////////////////////// Временный фикс
+  const searchValue = useSelector((state: RootState) => state.search.searchValue);
   const dispatch = useDispatch();
 
   return (

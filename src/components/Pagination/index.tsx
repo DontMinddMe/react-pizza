@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePage } from '../../store/slices/filterSlice';
+import { RootState } from '../../store';
 
 import styles from './Pagination.module.scss';
 
@@ -8,7 +9,7 @@ type PaginationProps = { paginationCount: number };
 
 const Pagination: React.FC<PaginationProps> = ({ paginationCount }) => {
   const dispatch = useDispatch();
-  const { activePage } = useSelector((state: any) => state.filter); ////////////////////////////////////////// Временный фикс
+  const { activePage } = useSelector((state: RootState) => state.filter);
 
   const paginationList = Array.from({ length: paginationCount }, (_, i) => i + 1);
 

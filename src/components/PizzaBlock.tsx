@@ -3,19 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { addItem, updateCount } from '../store/slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { Item } from '../store/slices/pizzaSlice';
 
-type PizzaBlockProps = {
-  category: number;
-  id: string;
-  imageUrl: string;
-  price: number;
-  rating: number;
-  sizes: number[];
-  title: string;
-  types: number[];
-};
-
-const PizzaBlock: React.FC<PizzaBlockProps> = ({
+const PizzaBlock: React.FC<Item> = ({
   category,
   id,
   imageUrl,
@@ -27,7 +18,9 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const [activeCaSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const item = useSelector((state: any) => state.cart.items.find((obj: any) => obj.id === id)); /////////////////////////////////////////////////////////////////// Временный фикс
+  const item = useSelector((state: RootState) =>
+    state.cart.items.find((obj: any) => obj.id === id),
+  ); /////////////////////////////////////////////////////////////////// Временный фикс
   const count = item ? item.count : 0;
 
   const dispatch = useDispatch();
@@ -39,6 +32,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
         imageUrl,
         price,
         title,
+        count,
       }),
     );
     dispatch(updateCount());

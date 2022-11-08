@@ -11,6 +11,7 @@ import Pagination from '../components/Pagination';
 import { setFilter } from '../store/slices/filterSlice';
 import { fetchItems } from '../store/slices/pizzaSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -21,10 +22,10 @@ const Home: React.FC = () => {
 
   const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
 
-  const searchValue = useSelector((state: any) => state.search.searchValue); //////////////////////////////////////////////// Временный фикс
-  const { categoryId, sort, isAsc, activePage } = useSelector((state: any) => state.filter); //////////////////////////////////////////////// Временный фикс
+  const searchValue = useSelector((state: RootState) => state.search.searchValue);
+  const { categoryId, sort, isAsc, activePage } = useSelector((state: RootState) => state.filter);
 
-  const { items, status } = useSelector((state: any) => state.pizza); //////////////////////////////////////////////// Временный фикс
+  const { items, status } = useSelector((state: RootState) => state.pizza);
 
   React.useEffect(() => {
     if (isMounted.current) {

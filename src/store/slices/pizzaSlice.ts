@@ -11,9 +11,25 @@ export const fetchItems = createAsyncThunk('pizza/fetchItemsStatus', async (prop
   return data;
 });
 
-const initialState = {
+export type Item = {
+  category: number;
+  id: string;
+  imageUrl: string;
+  price: number;
+  rating: number;
+  sizes: number[];
+  title: string;
+  types: number[];
+};
+
+interface PizzaSliceState {
+  items: Item[];
+  status: 'loading' | 'success' | 'error';
+}
+
+const initialState: PizzaSliceState = {
   items: [],
-  status: '', // loading / success / error
+  status: 'loading',
 };
 
 const pizzaSlice = createSlice({
