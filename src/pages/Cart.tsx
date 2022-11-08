@@ -6,8 +6,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import PizzaCartItem from '../components/PizzaCartItem';
 import CartEmpty from '../components/CartEmpty';
 
-const Cart = () => {
-  const { items, totalCount, totalPrice } = useSelector((state) => state.cart);
+type PizzaBlockProps = {
+  category: number;
+  id: string;
+  imageUrl: string;
+  price: number;
+  rating: number;
+  sizes: number[];
+  title: string;
+  types: number[];
+};
+
+const Cart: React.FC = () => {
+  const { items, totalCount, totalPrice } = useSelector((state: any) => state.cart); ////////////////////////////// Временный фикс
 
   const dispatch = useDispatch();
 
@@ -93,9 +104,10 @@ const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((obj) => (
+          {items.map((obj: any) => (
             <PizzaCartItem {...obj} key={obj.id} />
           ))}
+          {/* /////////////////////////////////////////////////////////////////////////////////////////////////////// Временный фикс */}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">

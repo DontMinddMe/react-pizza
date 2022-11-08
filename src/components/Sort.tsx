@@ -18,17 +18,21 @@ const Sort: React.FC = () => {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const clickEvent = (event: any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const clickEvent = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setSortPopUpVisibility(false);
       }
-    }; ///////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
+    };
 
-    const keydownEvent = (event: any) => {
+    const keydownEvent = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
         setSortPopUpVisibility(false);
       }
-    }; ///////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
+    };
 
     document.addEventListener('click', clickEvent);
     document.addEventListener('keydown', keydownEvent);

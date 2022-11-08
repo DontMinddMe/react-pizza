@@ -12,7 +12,7 @@ import { setFilter } from '../store/slices/filterSlice';
 import { fetchItems } from '../store/slices/pizzaSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,10 +21,10 @@ const Home = () => {
 
   const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
 
-  const searchValue = useSelector((state) => state.search.searchValue);
-  const { categoryId, sort, isAsc, activePage } = useSelector((state) => state.filter);
+  const searchValue = useSelector((state: any) => state.search.searchValue); //////////////////////////////////////////////// Временный фикс
+  const { categoryId, sort, isAsc, activePage } = useSelector((state: any) => state.filter); //////////////////////////////////////////////// Временный фикс
 
-  const { items, status } = useSelector((state) => state.pizza);
+  const { items, status } = useSelector((state: any) => state.pizza); //////////////////////////////////////////////// Временный фикс
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -65,6 +65,8 @@ const Home = () => {
         const search = searchValue ? `&search=${searchValue}` : '';
 
         dispatch(
+          /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
+          //@ts-ignore
           fetchItems({
             sort,
             category,
@@ -82,7 +84,7 @@ const Home = () => {
     loadItems();
   }, [categoryId, sort, isAsc, searchValue, activePage, dispatch]);
 
-  const content = items.map((obj) => <PizzaBlock {...obj} key={obj.id} />);
+  const content = items.map((obj: any) => <PizzaBlock {...obj} key={obj.id} />); ////////////////////////////////////// Временный фикс
   const skeleton = [...new Array(4)].map((_, index) => <PizzaSkeleton key={index} />);
 
   return (

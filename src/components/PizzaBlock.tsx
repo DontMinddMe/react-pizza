@@ -27,9 +27,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
 }) => {
   const [activeCaSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const item = useSelector((state: any) =>
-    state.cart.items.find((obj: PizzaBlockProps) => obj.id === id),
-  ); /////////////////////////////////////////////////////////////////// Временный фикс
+  const item = useSelector((state: any) => state.cart.items.find((obj: any) => obj.id === id)); /////////////////////////////////////////////////////////////////// Временный фикс
   const count = item ? item.count : 0;
 
   const dispatch = useDispatch();

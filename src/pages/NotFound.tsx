@@ -2,7 +2,7 @@ import React from 'react';
 
 import NotFoundPage from '../NotFoundPage';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return <NotFoundPage />;
 };
 
