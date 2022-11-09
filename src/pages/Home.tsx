@@ -9,7 +9,7 @@ import PizzaSkeleton from '../components/PizzaBlockSkeleton';
 import Pagination from '../components/Pagination';
 
 import { setFilter } from '../store/slices/filterSlice';
-import { fetchItems } from '../store/slices/pizzaSlice';
+import { fetchItems, Item } from '../store/slices/pizzaSlice';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store';
 
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
     loadItems();
   }, [categoryId, sort, isAsc, searchValue, activePage, dispatch]);
 
-  const content = items.map((obj: any) => <PizzaBlock {...obj} key={obj.id} />); ////////////////////////////////////// Временный фикс
+  const content = items.map((obj: Item) => <PizzaBlock {...obj} key={obj.id} />);
   const skeleton = [...new Array(4)].map((_, index) => <PizzaSkeleton key={index} />);
 
   return (

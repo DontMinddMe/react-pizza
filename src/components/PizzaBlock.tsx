@@ -18,9 +18,7 @@ const PizzaBlock: React.FC<Item> = ({
 }) => {
   const [activeCaSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
-  const item = useSelector((state: RootState) =>
-    state.cart.items.find((obj: any) => obj.id === id),
-  ); /////////////////////////////////////////////////////////////////// Временный фикс
+  const item = useSelector((state: RootState) => state.cart.items.find((obj) => obj.id === id));
   const count = item ? item.count : 0;
 
   const dispatch = useDispatch();

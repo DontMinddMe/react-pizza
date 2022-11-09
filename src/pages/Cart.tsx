@@ -94,10 +94,9 @@ const Cart: React.FC = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((obj: any) => (
+          {items.map((obj) => (
             <PizzaCartItem {...obj} key={obj.id} />
           ))}
-          {/* /////////////////////////////////////////////////////////////////////////////////////////////////////// Временный фикс */}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">

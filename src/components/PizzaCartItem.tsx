@@ -56,8 +56,12 @@ const PizzaCartItem: React.FC<PizzaCartItemProps> = ({ title, imageUrl, price, c
         </div>
         <div className="count__wrapper">
           <div className="cart__item-count">
-            <div
-              className="button button--outline button--circle cart__item-count-minus"
+            <button
+              disabled={count === 1}
+              className={
+                'button button--outline button--circle cart__item-count-minus' +
+                (count === 1 ? ' cart__item-count-minus--disabled' : '')
+              }
               onClick={onClickMinusItem}
             >
               <svg
@@ -76,9 +80,9 @@ const PizzaCartItem: React.FC<PizzaCartItemProps> = ({ title, imageUrl, price, c
                   fill="#EB5A1E"
                 ></path>
               </svg>
-            </div>
+            </button>
             <b>{count}</b>
-            <div
+            <button
               className="button button--outline button--circle cart__item-count-plus"
               onClick={onClickAdd}
             >
@@ -98,7 +102,7 @@ const PizzaCartItem: React.FC<PizzaCartItemProps> = ({ title, imageUrl, price, c
                   fill="#EB5A1E"
                 ></path>
               </svg>
-            </div>
+            </button>
           </div>
           <div className="cart__item-price">
             <b>{price * count} ₽</b>
