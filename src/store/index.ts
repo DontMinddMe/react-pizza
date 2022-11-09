@@ -3,6 +3,7 @@ import filterSlice from './slices/filterSlice';
 import searchSlice from './slices/searchSlice';
 import cartSlice from './slices/cartSlice';
 import pizzaSlice from './slices/pizzaSlice';
+import { useDispatch } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
@@ -14,3 +15,6 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
+type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;

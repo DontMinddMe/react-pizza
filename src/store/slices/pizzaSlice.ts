@@ -1,15 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export const fetchItems = createAsyncThunk('pizza/fetchItemsStatus', async (props) => {
-  const { sort, category, order, search, activePage } = props;
-  const { data } = await axios.get(
-    `https://6349481b0b382d796c8241e2.mockapi.io/items?page=${activePage}&limit=4&sortBy=${
-      sort.value
-    }&order=${sort.value === 'title' ? 'asc' : order}${category}${search}`,
-  );
-  return data;
-});
+import { Sort } from './filterSlice';
 
 export type Item = {
   category: number;
@@ -22,14 +13,41 @@ export type Item = {
   types: number[];
 };
 
+type FetchItemsProps = {
+  sort: Sort;
+  category: string;
+  order: string;
+  search: string;
+  activePage: number;
+};
+
+export const fetchItems = createAsyncThunk<Item[], FetchItemsProps>(
+  'pizza/fetchItemsStatus',
+  async (props) => {
+    const { sort, category, order, search, activePage } = props;
+    const { data } = await axios.get<Item[]>(
+      `https://6349481b0b382d796c8241e2.mockapi.io/items?page=${activePage}&limit=4&sortBy=${
+        sort.value
+      }&order=${sort.value === 'title' ? 'asc' : order}${category}${search}`,
+    );
+    return data;
+  },
+);
+
+enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
+
 interface PizzaSliceState {
   items: Item[];
-  status: 'loading' | 'success' | 'error';
+  status: Status;
 }
 
 const initialState: PizzaSliceState = {
   items: [],
-  status: 'loading',
+  status: Status.LOADING,
 };
 
 const pizzaSlice = createSlice({
@@ -40,19 +58,20 @@ const pizzaSlice = createSlice({
       state.items = action.payload;
     },
   },
-  extraReducers: {
-    [fetchItems.pending]: (state) => {
-      state.items = [];
-      state.status = 'loading';
-    },
-    [fetchItems.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.status = 'success';
-    },
-    [fetchItems.rejected]: (state) => {
-      state.status = 'error';
-      state.items = [];
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchItems.pending, (state) => {
+        state.items = [];
+        state.status = Status.LOADING;
+      })
+      .addCase(fetchItems.fulfilled, (state, action) => {
+        state.items = action.payload;
+        state.status = Status.SUCCESS;
+      })
+      .addCase(fetchItems.rejected, (state) => {
+        state.status = Status.ERROR;
+        state.items = [];
+      });
   },
 });
 

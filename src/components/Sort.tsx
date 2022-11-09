@@ -1,20 +1,15 @@
 import React from 'react';
-import { setSort, setIsAsc } from '../store/slices/filterSlice';
+import { setSort, setIsAsc, Sort } from '../store/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 
-type SortItem = {
-  name: string;
-  value: string;
-};
-
-export const sortTypes: SortItem[] = [
+export const sortTypes: Sort[] = [
   { name: 'популярности', value: 'rating' },
   { name: 'цене', value: 'price' },
   { name: 'алфавиту', value: 'title' },
 ];
 
-const Sort: React.FC = () => {
+const SortComponent: React.FC = () => {
   const [sortPopUpVisibility, setSortPopUpVisibility] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
@@ -48,7 +43,7 @@ const Sort: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const selectSortType = (obj: SortItem) => {
+  const selectSortType = (obj: Sort) => {
     dispatch(setSort(obj));
     setSortPopUpVisibility(false);
   };
@@ -96,4 +91,4 @@ const Sort: React.FC = () => {
   );
 };
 
-export default Sort;
+export default SortComponent;

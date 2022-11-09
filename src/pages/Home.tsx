@@ -3,19 +3,19 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
-import Sort, { sortTypes } from '../components/Sort';
+import SortComponent, { sortTypes } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaBlockSkeleton';
 import Pagination from '../components/Pagination';
 
 import { setFilter } from '../store/slices/filterSlice';
 import { fetchItems } from '../store/slices/pizzaSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../store';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
@@ -46,17 +46,20 @@ const Home: React.FC = () => {
       const params = qs.parse(window.location.search.substring(1));
       const sort = sortTypes.find((obj) => obj.value === params.sortBy);
 
-      dispatch(
-        setFilter({
-          categoryId: params.category,
-          sort,
-          activePage: params.page,
-        }),
-      );
+      if (params && sort) {
+        dispatch(
+          setFilter({
+            categoryId: Number(params.category),
+            sort,
+            activePage: Number(params.page),
+            isAsc,
+          }),
+        );
+      }
 
       isSearch.current = true;
     }
-  }, [dispatch]);
+  }, [dispatch, isAsc]);
 
   React.useEffect(() => {
     const loadItems = async () => {
@@ -66,8 +69,6 @@ const Home: React.FC = () => {
         const search = searchValue ? `&search=${searchValue}` : '';
 
         dispatch(
-          /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Временный фикс
-          //@ts-ignore
           fetchItems({
             sort,
             category,
@@ -92,7 +93,7 @@ const Home: React.FC = () => {
     <>
       <div className="content__top">
         <Categories />
-        <Sort />
+        <SortComponent />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
