@@ -3,11 +3,7 @@ import { setSort, setIsAsc, Sort } from '../store/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 
-export const sortTypes: Sort[] = [
-  { name: 'популярности', value: 'rating' },
-  { name: 'цене', value: 'price' },
-  { name: 'алфавиту', value: 'title' },
-];
+import { sortTypes } from '../store/slices/filterSlice';
 
 const SortComponent: React.FC = () => {
   const [sortPopUpVisibility, setSortPopUpVisibility] = React.useState(false);

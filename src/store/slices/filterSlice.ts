@@ -5,6 +5,14 @@ export type Sort = {
   value: 'title' | 'rating' | 'price';
 };
 
+export const categoriesArray = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
+export const sortTypes: Sort[] = [
+  { name: 'популярности', value: 'rating' },
+  { name: 'цене', value: 'price' },
+  { name: 'алфавиту', value: 'title' },
+];
+
 interface FilterSliceState {
   categoryId: number;
   sort: Sort;

@@ -7,8 +7,18 @@ import { RootState } from '../store';
 import SearchBar from './SearchBar';
 
 const Header: React.FC = () => {
-  const { totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
+  const { totalPrice, totalCount, items } = useSelector((state: RootState) => state.cart);
   const { pathname } = useLocation();
+  const isMounted = React.useRef<boolean>(false);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const itemsJSON = JSON.stringify(items);
+      window.localStorage.setItem('cart', itemsJSON);
+    }
+
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className="header">
