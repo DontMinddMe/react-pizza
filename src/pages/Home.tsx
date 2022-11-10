@@ -10,7 +10,7 @@ import Pagination from '../components/Pagination';
 
 import { sortTypes } from '../store/slices/filterSlice';
 import { setFilter } from '../store/slices/filterSlice';
-import { fetchItems, Item } from '../store/slices/pizzaSlice';
+import { fetchItems, Item, paginationCount } from '../store/slices/pizzaSlice';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store';
 
@@ -20,8 +20,6 @@ const Home: React.FC = () => {
 
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-
-  const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
 
   const searchValue = useSelector((state: RootState) => state.search.searchValue);
   const { categoryId, sort, isAsc, activePage } = useSelector((state: RootState) => state.filter);

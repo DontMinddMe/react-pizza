@@ -34,6 +34,8 @@ export const fetchItems = createAsyncThunk<Item[], FetchItemsProps>(
   },
 );
 
+export const paginationCount = 3; // Если бы mockapi.io умел передавать количество доступных страниц, то я бы их вставил сюда ))))
+
 enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
