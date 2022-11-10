@@ -42,31 +42,31 @@ const PizzaBlock: React.FC<Item> = ({
         <Link to={`item/${id}`} key={id}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
           <h4 className="pizza-block__title">{title}</h4>
-          <div className="pizza-block__selector">
-            <ul>
-              {types.map((type, index) => (
-                <li
-                  onClick={() => setActiveType(index)}
-                  className={activeType === index ? 'active' : ''}
-                  key={type}
-                >
-                  {type === 0 ? 'тонкое' : 'традиционное'}
-                </li>
-              ))}
-            </ul>
-            <ul>
-              {sizes.map((size, index) => (
-                <li
-                  onClick={() => setActiveSize(index)}
-                  className={activeCaSize === index ? 'active' : ''}
-                  key={size}
-                >
-                  {size} см.
-                </li>
-              ))}
-            </ul>
-          </div>
         </Link>
+        <div className="pizza-block__selector">
+          <ul>
+            {types.map((type, index) => (
+              <li
+                onClick={() => setActiveType(index)}
+                className={activeType === index ? 'active' : ''}
+                key={type}
+              >
+                {type === 0 ? 'тонкое' : 'традиционное'}
+              </li>
+            ))}
+          </ul>
+          <ul>
+            {sizes.map((size, index) => (
+              <li
+                onClick={() => setActiveSize(index)}
+                className={activeCaSize === index ? 'active' : ''}
+                key={size}
+              >
+                {size} см.
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
           <button className="button button--outline button--add" onClick={onClickAdd}>
