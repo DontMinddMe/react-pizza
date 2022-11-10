@@ -106,7 +106,7 @@ const Home: React.FC = () => {
       ) : (
         <div className="content__items">{status === 'loading' ? skeleton : content}</div>
       )}
-      {paginationCount > 1 && items.length > 0 && <Pagination paginationCount={paginationCount} />}
+      {paginationCount > 1 && <Pagination paginationCount={paginationCount} />}
     </>
   );
 };
