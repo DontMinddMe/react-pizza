@@ -51,7 +51,10 @@ const filterSlice = createSlice({
       state.activePage = action.payload;
     },
 
-    setFilter(state, action: PayloadAction<FilterSliceState>) {
+    setFilter(
+      state,
+      action: PayloadAction<{ categoryId: string; activePage: string; sort: Sort }>,
+    ) {
       state.categoryId = Number(action.payload.categoryId);
       state.sort = action.payload.sort;
       state.activePage = Number(action.payload.activePage);

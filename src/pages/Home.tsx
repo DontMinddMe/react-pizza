@@ -8,7 +8,7 @@ import PizzaBlock from '../components/PizzaBlock';
 import PizzaSkeleton from '../components/PizzaBlockSkeleton';
 import Pagination from '../components/Pagination';
 
-import { sortTypes } from '../store/slices/filterSlice';
+import { Sort, sortTypes } from '../store/slices/filterSlice';
 import { setFilter } from '../store/slices/filterSlice';
 import { fetchItems, Item, paginationCount } from '../store/slices/pizzaSlice';
 import { useSelector } from 'react-redux';
@@ -48,17 +48,16 @@ const Home: React.FC = () => {
       if (params && sort) {
         dispatch(
           setFilter({
-            categoryId: Number(params.category),
+            categoryId: String(params.category),
             sort,
-            activePage: Number(params.page),
-            isAsc,
+            activePage: String(params.page),
           }),
         );
       }
 
       isSearch.current = true;
     }
-  }, [dispatch, isAsc]);
+  }, [dispatch]);
 
   React.useEffect(() => {
     const loadItems = async () => {
